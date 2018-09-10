@@ -1,0 +1,37 @@
+---
+- debug:
+    msg: "product_family: {{ app_product_family }} ; release: {{ app_release }}"
+  tags:
+    - app_debug
+
+- name: "{{ app_product_family }} - check if mandatory deployment parametres are provided"
+  fail:
+    msg: "mandatory deployment parametres not provided!"
+  when: app_product_family ==  "" or app_release == ""
+  tags:
+    - app
+
+- name: "{{ app_product_family }} - create app directory"
+  file:
+    path: "{{ app_basedir }}"
+    state: directory
+    mode: "0750"
+  notify: touch to reload
+  tags:
+    - app
+
+- name: "{{ app_product_family }} - change app directory mode"
+  file:
+    path: "{{ app_basedir }}"
+    mode: "0770"
+  notify: touch to reload
+  tags:
+    - app
+
+- name: Handle touch to reload file exists
+  copy:
+    content: ""
+    dest: "{{ app_touch_to_reload_file }}"
+  tags:
+    - app
+...

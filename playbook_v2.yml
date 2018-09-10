@@ -1,0 +1,13 @@
+#!/usr/bin/env ansible-playbook
+
+- hosts: localhost
+  gather_facts: no
+  roles:
+    - app_v2
+  vars:
+    app_v2_root: "/tmp/test_ansible_v2"
+    app_v2_versions:
+      - app_v2_product_family: 1
+        app_v2_release: "v1.0.2"
+      - app_v2_product_family: 3
+        app_v2_release: "v4.0.7"

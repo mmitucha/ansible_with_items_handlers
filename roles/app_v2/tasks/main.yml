@@ -1,0 +1,14 @@
+---
+# Workaround because import_tasks can't be run with_items
+- include_tasks: deploy.yml
+  when: app_v2_versions
+  with_items: "{{ app_v2_versions }}"
+  loop_control:
+    loop_var: app_v2
+  vars:
+    app_v2_product_family: "{{ app_v2.app_v2_product_family }}"
+    app_v2_release: "{{ app_v2.app_v2_release }}"
+  tags:
+    - app_v2
+    - app_v2_deploy
+...

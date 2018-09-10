@@ -1,0 +1,8 @@
+---
+app_name: app
+app_product_family: ""
+app_release: ""
+app_root: "/tmp/test_ansible"
+app_basedir: "{{ app_root }}/{{ app_product_family }}_{{ app_name }}_{{ app_release }}"
+app_touch_to_reload_file: "{{ app_root }}/{{ app_product_family }}-touch_to_reload"
+...

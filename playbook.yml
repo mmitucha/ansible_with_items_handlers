@@ -1,0 +1,25 @@
+#!/usr/bin/env ansible-playbook
+
+# HAndler is run only once, from first notifier
+- hosts: localhost
+  gather_facts: no
+  vars:
+    app_root: "/tmp/test_ansible"
+    app_versions:
+      - app_product_family: 1
+        app_release: "v1.0.2"
+      - app_product_family: 3
+        app_release: "v4.0.7"
+  tasks:
+   - name: Deploy multiple versions of app
+     include_role:
+       name: app
+     with_items: "{{ app_versions }}"
+     loop_control:
+       loop_var: app_version
+     vars:
+       app_product_family: "{{ app_version.app_product_family }}"
+       app_release: "{{ app_version.app_release }}"
+     tags:
+       - app
+       - app_debug

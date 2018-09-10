@@ -1,0 +1,6 @@
+---
+- name: touch to reload
+  file:
+    path: "{{ app_v2_touch_to_reload_file }}"
+    state: touch
+...
